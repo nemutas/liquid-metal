@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import glsl from 'vite-plugin-glsl'
 import wasm from 'vite-plugin-wasm'
+import topLevelAwait from 'vite-plugin-top-level-await'
 
 export default defineConfig(() => {
   return {
@@ -10,7 +11,7 @@ export default defineConfig(() => {
     build: {
       outDir: '../dist',
     },
-    plugins: [glsl(), wasm()],
+    plugins: [glsl(), wasm(), topLevelAwait()],
     server: {
       host: true,
     },
