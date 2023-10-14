@@ -74,9 +74,9 @@ void main() {
     speculer = clamp(speculer, 0.0, 1.0);
     speculer = pow(speculer, 50.0);
 
-    color = mix(env, vec3(0.05), fresnel - speculer);
+    color = mix(env, vec3(0.1), (fresnel - speculer) * 1.2);
 
-    float depth = smoothstep(-1.5, 1.0, p.z);
+    float depth = smoothstep(-1.7, 1.0, p.z);
     color *= depth;
   }
 
