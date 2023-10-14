@@ -41,7 +41,7 @@ export class Canvas {
   }
 
   private createSpheres() {
-    const geometry = new THREE.SphereGeometry(0.2)
+    const geometry = new THREE.SphereGeometry(0.1)
     const material = new THREE.MeshNormalMaterial({ wireframe: false })
     const mesh = new THREE.Mesh(geometry, material)
 
