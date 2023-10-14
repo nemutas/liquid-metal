@@ -78,8 +78,6 @@ void main() {
 
     float depth = smoothstep(-1.5, 1.0, p.z);
     color *= depth;
-
-    // color = vec3(speculer);
   }
 
   gl_FragColor = vec4(color, 1.0);
