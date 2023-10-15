@@ -17,8 +17,8 @@ uniform samplerCube tEnv;
 
 varying vec2 vUv;
 
-const int MAX_STEPS = 50;
-const float MAX_DIST = 20.0;
+const int MAX_STEPS = 60;
+const float MAX_DIST = 30.0;
 const float SURF_DIST = 0.001;
 const vec3 LIGHT = normalize(vec3(1.0, 1.0, 0.5));
 
@@ -31,7 +31,7 @@ float sdf(vec3 p) {
   for (int i = 0; i < ModelCount; i++) {
     vec3 p = m4v3Coord(uModel[i].matrix, p);
     float shape = sdSphere(p, 0.25);
-    final = opSmoothUnion(final, shape, 0.6);
+    final = opSmoothUnion(final, shape, 0.55);
   }
 
   float inner = sdSphere(vec3(p), 0.8);
@@ -76,7 +76,7 @@ void main() {
     speculer = clamp(speculer, 0.0, 1.0);
     speculer = pow(speculer, 50.0);
 
-    color = mix(env, vec3(0.1), (fresnel - speculer) * 1.2);
+    color = mix(env * 0.9, env * 0.1, fresnel - speculer);
 
     float depth = smoothstep(-1.7, 1.0, p.z);
     color *= depth;
