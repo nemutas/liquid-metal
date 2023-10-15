@@ -17,8 +17,10 @@ uniform samplerCube tEnv;
 
 varying vec2 vUv;
 
-const int MAX_STEPS = 70;
-const float MAX_DIST = 100.0;
+const int MAX_STEPS = 50;
+const float MAX_DIST = 20.0;
+const float SURF_DIST = 0.001;
+const vec3 LIGHT = normalize(vec3(1.0, 1.0, 0.5));
 
 #include './modules/primitives.glsl'
 #include './modules/combinations.glsl'
@@ -55,7 +57,7 @@ void main() {
   for (int i = 0; i < MAX_STEPS; i++) {
     vec3 rayPos = ro + totalDist * ray;
     float dist = sdf(rayPos);
-    if (abs(dist) < 0.001 || MAX_DIST < totalDist) break;
+    if (abs(dist) < SURF_DIST || MAX_DIST < totalDist) break;
     totalDist += dist;
   }
 
@@ -70,7 +72,7 @@ void main() {
     float fresnel = pow(1.0 + dot(ray, normal), 1.5);
     fresnel = smoothstep(-0.1, 1.0, fresnel);
     
-    float speculer = dot(reflection, normalize(vec3(1.0, 1.0, 0.5)));
+    float speculer = dot(reflection, LIGHT);
     speculer = clamp(speculer, 0.0, 1.0);
     speculer = pow(speculer, 50.0);
 
